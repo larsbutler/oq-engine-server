@@ -160,6 +160,12 @@ def run_hazard_calc(request):
 
         migration_callback_url = request.POST.get('migration_callback_url')
         owner_user = request.POST.get('owner_user')
+        # These can be empty strings.
+        # If so, convert them to `None`.
+        if not migration_callback_url:
+            migration_callback_url = None
+        if not owner_user:
+            owner_user = None
 
         base_url = _get_base_url(request)
         tasks.run_hazard_calc.apply_async(
@@ -382,6 +388,12 @@ def run_risk_calc(request):
 
         migration_callback_url = request.POST.get('migration_callback_url')
         owner_user = request.POST.get('owner_user')
+        # These can be empty strings.
+        # If so, convert them to `None`.
+        if not migration_callback_url:
+            migration_callback_url = None
+        if not owner_user:
+            owner_user = None
 
         base_url = _get_base_url(request)
         tasks.run_risk_calc.apply_async(

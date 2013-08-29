@@ -502,7 +502,11 @@ class RunHazardCalcTestCase(BaseViewTestCase):
         fake_model_3 = FakeTempUploadedFile('/foo/bar/tmpHGa9Whtmp.upload',
                                             'source_model.xml')
 
-        request = self.factory.post('/v1/calc/hazard/run')
+        request = self.factory.post(
+            '/v1/calc/hazard/run',
+            {'migration_callback_url': '',
+             'owner_user': ''}
+        )
         request.user = mock.Mock()
         request.user.username = 'openquake'
         request._files = OrderedDict([
@@ -612,6 +616,9 @@ class RunRiskCalcTestCase(BaseViewTestCase):
         self.request.method = 'POST'
         self.request.POST = dict()
         self.request.POST['hazard_calc'] = 666
+        self.request.POST['migration_callback_url'] = ''
+        self.request.POST['owner_user'] = ''
+
         self.request.META = dict()
         self.request.META['HTTP_HOST'] = 'www.openquake.org'
 

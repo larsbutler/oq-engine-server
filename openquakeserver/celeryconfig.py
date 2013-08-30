@@ -21,6 +21,6 @@ CELERY_DEFAULT_ROUTING_KEY = 'oqengineserver'
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
 
-CELERY_IMPORTS = ('engine.tasks', )
+CELERY_IMPORTS = ('openquakeserver.engine.tasks', )
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'openquake.engine.settings'

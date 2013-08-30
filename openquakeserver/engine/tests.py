@@ -11,8 +11,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.test.client import RequestFactory
 from django.utils import unittest
 
-from engine import views
-from engine import _test_utils as utils
+from openquakeserver.engine import views
+from openquakeserver.engine import _test_utils as utils
 
 FakeOutput = namedtuple('FakeOutput', 'id, display_name, output_type')
 
@@ -63,7 +63,7 @@ class CalcHazardTestCase(BaseViewTestCase):
              u'description': u'description e',
              u'id': 3},
         ]
-        with mock.patch('engine.views._get_haz_calcs') as ghc:
+        with mock.patch('openquakeserver.engine.views._get_haz_calcs') as ghc:
             ghc.return_value = [
                 (1, 'executing', 'description 1'),
                 (2, 'pre_executing', 'description 2'),
@@ -75,7 +75,7 @@ class CalcHazardTestCase(BaseViewTestCase):
             self.assertEqual(expected_content, json.loads(response.content))
 
     def test_404_no_calcs(self):
-        with mock.patch('engine.views._get_haz_calcs') as ghc:
+        with mock.patch('openquakeserver.engine.views._get_haz_calcs') as ghc:
             ghc.return_value = []
             response = views.calc_hazard(self.request)
 
@@ -99,7 +99,7 @@ class CalcRiskTestCase(BaseViewTestCase):
              u'description': u'description e',
              u'id': 3},
         ]
-        with mock.patch('engine.views._get_risk_calcs') as grc:
+        with mock.patch('openquakeserver.engine.views._get_risk_calcs') as grc:
             grc.return_value = [
                 (1, 'executing', 'description 1'),
                 (2, 'pre_executing', 'description 2'),
@@ -115,7 +115,7 @@ class CalcRiskTestCase(BaseViewTestCase):
 
 class CalcToResponseDataTestCase(unittest.TestCase):
     """
-    Tests for `engine.views._calc_to_response_data`.
+    Tests for `openquakeserver.engine.views._calc_to_response_data`.
     """
 
     def setUp(self):
@@ -311,9 +311,9 @@ class CalcRiskResultsTestCase(BaseViewTestCase):
 
 class GetResultTestCase(BaseViewTestCase):
     """
-    Tests for :func:`engine.views.get_hazard_result`,
-    :func:`engine.views.get_risk_result`, and the helper function
-    :func:`engine.views._get_result`.
+    Tests for :func:`openquakeserver.engine.views.get_hazard_result`,
+    :func:`openquakeserver.engine.views.get_risk_result`, and the helper
+    function :func:`openquakeserver.engine.views._get_result`.
     """
 
     def test_hazard_default_export_type(self):
@@ -523,8 +523,8 @@ class RunHazardCalcTestCase(BaseViewTestCase):
             move='shutil.move',
             rmtree='shutil.rmtree',
             job_from_file='openquake.engine.engine.haz_job_from_file',
-            load_sm='engine.views._load_source_models',
-            run_hazard_task='engine.tasks.run_hazard_calc',
+            load_sm='openquakeserver.engine.views._load_source_models',
+            run_hazard_task='openquakeserver.engine.tasks.run_hazard_calc',
         )
         multi_mock = utils.MultiMock(**mocks)
 
@@ -642,7 +642,7 @@ class RunRiskCalcTestCase(BaseViewTestCase):
             move='shutil.move',
             rmtree='shutil.rmtree',
             job_from_file='openquake.engine.engine.risk_job_from_file',
-            run_risk_task='engine.tasks.run_risk_calc',
+            run_risk_task='openquakeserver.engine.tasks.run_risk_calc',
         )
         multi_mock = utils.MultiMock(**mocks)
 

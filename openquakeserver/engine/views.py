@@ -20,8 +20,8 @@ from openquake.engine.export import hazard as hazard_export
 from openquake.engine.export import risk as risk_export
 from xml.etree import ElementTree as etree
 
-from engine import forms
-from engine import tasks
+from openquakeserver.engine import forms
+from openquakeserver.engine import tasks
 
 METHOD_NOT_ALLOWED = 405
 NOT_IMPLEMENTED = 501
